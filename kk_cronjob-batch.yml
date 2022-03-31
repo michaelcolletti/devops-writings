@@ -1,0 +1,36 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  creationTimestamp: "2022-03-14T20:42:42Z"
+  name: devops
+  namespace: default
+  resourceVersion: "8556"
+  uid: a551c189-02d6-4224-a981-4f4df4e497f2
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: devops
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - image: httpd:latest
+            imagePullPolicy: Always
+            name: devops
+            resources: {}
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+  schedule: '*/7 * * * *'
+  successfulJobsHistoryLimit: 3
+  suspend: false
+status: {}
